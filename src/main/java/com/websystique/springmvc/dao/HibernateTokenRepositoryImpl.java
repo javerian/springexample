@@ -11,7 +11,6 @@ import org.springframework.security.web.authentication.rememberme.PersistentToke
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.websystique.springmvc.dao.AbstractDao;
 import com.websystique.springmvc.model.PersistentLogin;
 
 @Repository("tokenRepositoryDao")
@@ -23,6 +22,7 @@ public class HibernateTokenRepositoryImpl extends AbstractDao<String, Persistent
 
 	@Override
 	public void createNewToken(PersistentRememberMeToken token) {
+
 		logger.info("Creating Token for user : {}", token.getUsername());
 		PersistentLogin persistentLogin = new PersistentLogin();
 		persistentLogin.setUsername(token.getUsername());
@@ -30,7 +30,6 @@ public class HibernateTokenRepositoryImpl extends AbstractDao<String, Persistent
 		persistentLogin.setToken(token.getTokenValue());
 		persistentLogin.setLast_used(token.getDate());
 		persist(persistentLogin);
-
 	}
 
 	@Override
